@@ -1,9 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://developer.android.com/studio/command-line/apksigner
-TERMUX_PKG_DESCRIPTION="APK signing tool"
+TERMUX_PKG_DESCRIPTION="APK signing tool from Android SDK. Requires Android 8+ as minimum."
 TERMUX_PKG_LICENSE="Apache-2.0, GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=${TERMUX_ANDROID_BUILD_TOOLS_VERSION}
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=3
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
@@ -66,7 +66,7 @@ termux_step_make_install() {
 	mv apksigner.jar $TERMUX_PREFIX/share/dex/apksigner.jar
 
 	echo '#!/bin/sh' > $TERMUX_PREFIX/bin/apksigner
-	echo "dalvikvm -Xcompiler-option --compiler-filter=speed -cp $TERMUX_PREFIX/share/dex/apksigner.jar com.android.apksigner.ApkSignerTool \$@" >> $TERMUX_PREFIX/bin/apksigner
+	echo "dalvikvm -Xcompiler-option --compiler-filter=speed -cp $TERMUX_PREFIX/share/dex/apksigner.jar com.android.apksigner.ApkSignerTool \"\$@\"" >> $TERMUX_PREFIX/bin/apksigner
 	chmod +x $TERMUX_PREFIX/bin/apksigner
 }
 

@@ -126,7 +126,6 @@ PACKAGES+=" zlib1g-dev:i386"
 
 # For swift.
 PACKAGES+=" lld"
-PACKAGES+=" patchelf"
 
 # Needed by wrk.
 PACKAGES+=" luajit"
@@ -142,6 +141,9 @@ PACKAGES+=" openjdk-8-jdk"
 
 # needed by ovmf
 PACKAGES+=" libarchive-tools"
+
+# Needed by cavif-rs
+PACKAGES+=" nasm"
 
 # Needed by packages in unstable repository.
 PACKAGES+=" docbook-to-man"
@@ -206,6 +208,11 @@ $SUDO apt-get -yq update
 
 $SUDO DEBIAN_FRONTEND=noninteractive \
 	apt-get install -yq --no-install-recommends $PACKAGES
+
+# Pip for python2.
+curl -L --output /tmp/py2-get-pip.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
+$SUDO python2 /tmp/py2-get-pip.py
+rm -f /tmp/py2-get-pip.py
 
 $SUDO locale-gen --purge en_US.UTF-8
 echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' | $SUDO tee -a /etc/default/locale
